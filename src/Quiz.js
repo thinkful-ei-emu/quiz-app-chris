@@ -16,7 +16,6 @@ class Quiz {
     this.active = true;
     //pull the questions from the server
     this.generateQuestions();
-    console.log(this.unasked);
     //get the first question
     this.getCurrentQuestion();
   }
@@ -24,12 +23,16 @@ class Quiz {
   getCurrentQuestion() {
     //pulls the first element of the unasked array
     //displays it on the page
-    // Question.text = this.unasked[0][question];
-    // Question.answers = this.unasked[0][answers];
-    // Question.correctAnswer = this.unasked[0][correctAnswer];
+    console.log(this.unasked);
+    // Question.text = this.unasked;
+    // Question.answers = this.unasked[0];
+    // Question.correctAnswer = this.unasked[0];
+
+    // console.log(Question.text);
     //splices that element and adds it to the asked array
-    this.asked = this.unasked.splice( 0 , 1 );
+    this.asked = this.unasked.slice( 0 , 1 );
     this.unasked.splice( 0 , 1 );
+    console.log(this['unasked'].length);
   }
 
   nextQuestion(){
@@ -40,7 +43,7 @@ class Quiz {
   getProgressBar() {
     let progress = 'Inactive';
     if (this.active) {
-      progress = `${this.asked} of 5`;
+      progress = `${this.asked.length} of 5`;
     }
   }
 
@@ -66,7 +69,6 @@ class Quiz {
     const self = this;
     return getQuestions()
       .then(function({results}) {
-        console.log(results);
         results.forEach(function(question) {
           self.addQuestions(question);
         });
@@ -92,7 +94,7 @@ class Quiz {
     this.active = false;
     //check if it is a high score
     if (this.highScoreCheck) {
-      console.log('That iss a new high score!');
+      console.log('That is a new high score!');
     }
     //add score to score history if it is a new high score
     this.scoreHistory.push(this.score);
